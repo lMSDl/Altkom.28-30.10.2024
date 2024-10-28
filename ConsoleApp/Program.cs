@@ -29,7 +29,6 @@ Console.WriteLine(p1.ExpirationDate);
 Console.WriteLine(p1.CreateDescription());
 
 
-
 Product p2 = new Product("Marchewka", 3.5f);
 Console.WriteLine(p2.CreateDescription());
 
@@ -49,6 +48,11 @@ person2.BirthDate = new DateTime(1976, 4, 15);
 
 Console.WriteLine(person2.Bio());
 
+Person person3 = new Person("Monika", "Monikowska");
+Person person4 = new Person("Edward", "Edwardowski", DateTime.Now.AddYears(-23));
+
+Console.WriteLine(person3.Bio());
+Console.WriteLine(person4.Bio());
 
 void Nullable() {
     int a = 4;

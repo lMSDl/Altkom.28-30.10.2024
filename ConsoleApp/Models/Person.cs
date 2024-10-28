@@ -8,6 +8,20 @@ namespace ConsoleApp.Models
 {
     internal class Person
     {
+
+        public Person(string firstName, string lastName, DateTime birthDate) : this(firstName, lastName)
+        {
+            BirthDate = birthDate;
+        }
+
+        public Person(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+        public Person() { }
+
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
