@@ -28,6 +28,23 @@ Console.WriteLine(p1.ExpirationDate);
 
 Console.WriteLine(p1.CreateDescription());
 
+
+Person person1 = new Person();
+person1.FirstName = "Ewa";
+person1.LastName = "Ewowska";
+person1.BirthDate = DateTime.Now.AddYears(-35);
+
+Console.WriteLine(person1.Bio());
+
+
+Person person2 = new Person();
+person2.FirstName = "Adam";
+person2.LastName = "Adamski";
+person2.BirthDate = new DateTime(1976, 4, 15);
+
+Console.WriteLine(person2.Bio());
+
+
 void Nullable() {
     int a = 4;
     Sth1(a);
