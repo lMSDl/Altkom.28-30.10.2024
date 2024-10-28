@@ -29,6 +29,11 @@ Console.WriteLine(p1.ExpirationDate);
 Console.WriteLine(p1.CreateDescription());
 
 
+
+Product p2 = new Product("Marchewka", 3.5f);
+Console.WriteLine(p2.CreateDescription());
+
+
 Person person1 = new Person();
 person1.FirstName = "Ewa";
 person1.LastName = "Ewowska";
@@ -38,7 +43,7 @@ Console.WriteLine(person1.Bio());
 
 
 Person person2 = new Person();
-person2.FirstName = "Adam";
+//person2.FirstName = "Adam";
 person2.LastName = "Adamski";
 person2.BirthDate = new DateTime(1976, 4, 15);
 

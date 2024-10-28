@@ -11,11 +11,38 @@ namespace ConsoleApp.Models
     //pełna nazwa klasy to <namespace>.<nazwa>
     internal class Product
     {
+
+        //metoda konstrukcyjna  (konstruktor) - bezparametrowy
+        //jeśli klasa nie ma żadnego zdefiniowanego konstruktora, to konstruktor bezparametrowy jest generowany automatycznie
+        //brak określenia typu zwracanego i nazwa taka sama jak nazwa klasy
+        //metody konstrukcyjne są potrzebne, aby wstępnie skonfugorować produkt
+        public Product()
+        {
+
+        }
+
+        //przeciążenie metody konstrukcyjnej = wiele metod o tej samej nazwie, ale przyjmujące inne parametry
+        public Product(string name)
+        {
+            SetName(name);
+        }
+
+        //konstruktor parametrowy - służy do zapewnienia klasie wartości początkowych przekazanych jako parametry
+        //jeśli w klasie występuje jakiś konstuktor parametrowy, to konstuktor bezparametrowy nie zostanie automatycznie wygenerowany
+        //chcąc posiadać jednocześnie konstruktor parametrowy i bezparametrowy musimy go jawnie utworzyć
+        //: this(..) - odwołanie się do innego konstruktora. W ten sposób tworzy się konstruktory teleskopowe (rozszeżają swoje możliwości niwelując powtarzający się kod)
+        public Product(string name, float price) : this(name)
+        {
+            Price = price;
+        }
+
+
         //pole klasy (field)
         //private - oznacza dostęp tylko dla elementów danej klasy
         //brak modyfikatora dostępu = private (dla składników klasy)
         //pola zazwyczaj są prywatne ze względu na hermetyzację, a dostęp realizowany jest przez metody dostępowe (getter i setter)
-        /*private*/ string _name;
+        /*private*/
+        string _name;
 
         //setter - do ustawiania wartości - metoda przyjmuje parametr, który zostaje wpisany w odpowiednie pole (można dodać kod "obróbki danych")
         //void - metoda nic nie zwaraca
@@ -65,6 +92,7 @@ namespace ConsoleApp.Models
                 }
             }
         }
+
 
         public string CreateDescription()
         {
