@@ -3,6 +3,9 @@ using Models;
 
 namespace Services.InMemory
 {
+    //klasa generyczna
+    // where T : Entity - klasy podstawiane za T muszą dziedziczyć po wskazanej klasie
+    // w tym przypadku T musi dziedziczyć po Entity ponieważ potrzebujemy informacji o właściwosći Id
     public class EntitiyService<T> where T : Entity
     {
         private List<T> _items;

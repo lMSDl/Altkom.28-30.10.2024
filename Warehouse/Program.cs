@@ -1,4 +1,9 @@
-﻿Warehouse.PeopleWarehouse _warehouse = new();
+﻿
+using Models;
+using Warehouse;
+
+//wykorzystanie dziedziczenia i generyczności
+GenericWarehouse<Person> _warehouse = new PeopleWarehouse();
 
 bool exit = false;
 do

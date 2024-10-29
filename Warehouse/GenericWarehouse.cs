@@ -15,6 +15,7 @@ namespace Warehouse
             }
         }
 
+        //nie znamy implementacji dla T
         protected abstract string GetItemInfo(T items);
 
         public void Create()
@@ -24,6 +25,7 @@ namespace Warehouse
             _service.Create(item);
         }
 
+        //nie wiemy jak stworzyć element typu T, więc tworzymy metodę abstrakcyjną, której ciało będzie musiało być zapewnione w klasach pochodnych
         protected abstract T CreateNewItem();
 
         public void Delete()
@@ -53,6 +55,7 @@ namespace Warehouse
             _ = _service.Update(id, item);
         }
 
+        //nie znamy implementacji dla T
         protected abstract T CreateUpdatedItem(T old);
 
         public void ShowInfo(string output)
