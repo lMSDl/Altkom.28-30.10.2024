@@ -3,31 +3,30 @@ using Services.InMemory;
 
 namespace Warehouse
 {
-    internal class Warehouse
+    internal abstract class GenericWarehouse<T> where T : Entity
     {
-        ProductsService _service = new ProductsService();
+        EntitiyService<T> _service = new EntitiyService<T>();
 
-        public void ShowProducts()
+        public void Show()
         {
-            foreach (Product product in _service.Read())
+            foreach (T item in _service.Read())
             {
-                Console.WriteLine($"{product.Id}\t{product.Name}\t{product.Price}\t{product.ExpirationDate.ToShortDateString()}");
+                Console.WriteLine(GetItemInfo(item));
             }
         }
 
-        public void CreateProduct()
-        {
-            var product = new Product
-            {
-                Name = GetString("Nazwa:"),
-                Price = GetFloat("Cena:"),
-                ExpirationDate = GetDateTime("Data przydatności:")
-            };
+        protected abstract string GetItemInfo(T items);
 
-            _service.Create(product);
+        public void Create()
+        {
+            var item = CreateNewItem();
+
+            _service.Create(item);
         }
 
-        public void DeleteProduct()
+        protected abstract T CreateNewItem();
+
+        public void Delete()
         {
             int id = GetId();
 
@@ -38,7 +37,7 @@ namespace Warehouse
             }
         }
 
-        public void EditProduct()
+        public void Edit()
         {
             int id = GetId();
             var old = _service.Read(id);
@@ -49,15 +48,12 @@ namespace Warehouse
                 return;
             }
 
-            var product = new Product
-            {
-                Name = GetString($"Nazwa ({old.Name}):"),
-                Price = GetFloat($"Cena ({old.Price}):"),
-                ExpirationDate = GetDateTime($"Data przydatności ({old.ExpirationDate.ToShortDateString()}):")
-            };
+            var item = CreateUpdatedItem(old);
 
-            _ = _service.Update(id, product);
+            _ = _service.Update(id, item);
         }
+
+        protected abstract T CreateUpdatedItem(T old);
 
         public void ShowInfo(string output)
         {
@@ -83,7 +79,7 @@ namespace Warehouse
             }
         }
 
-        private string GetString(string label)
+        protected string GetString(string label)
         {
             Console.WriteLine(label);
 
@@ -92,7 +88,7 @@ namespace Warehouse
             return Console.ReadLine()!;
         }
 
-        private float GetFloat(string label) {
+        protected float GetFloat(string label) {
             var input = GetString(label);
             try
             {
@@ -119,7 +115,7 @@ namespace Warehouse
             }
         }
 
-        private DateTime GetDateTime(string label)
+        protected DateTime GetDateTime(string label)
         {
             var input = GetString(label);
             DateTime dateTime;

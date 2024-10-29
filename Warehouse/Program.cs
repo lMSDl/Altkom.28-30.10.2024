@@ -1,23 +1,23 @@
-﻿Warehouse.Warehouse _warehouse = new();
+﻿Warehouse.PeopleWarehouse _warehouse = new();
 
 bool exit = false;
 do
 {
     Console.Clear();
-    _warehouse.ShowProducts();
+    _warehouse.Show();
     Console.WriteLine("Commands: create, edit, delete, exit");
     var input = Console.ReadLine();
 
     switch (input)
     {
         case "create":
-            _warehouse.CreateProduct();
+            _warehouse.Create();
             break;
         case "edit":
-            _warehouse.EditProduct();
+            _warehouse.Edit();
             break;
         case "delete":
-            _warehouse.DeleteProduct();
+            _warehouse.Delete();
             break;
         case "exit":
             exit = true;
