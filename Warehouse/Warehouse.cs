@@ -69,7 +69,18 @@ namespace Warehouse
         private int GetId()
         {
             var input = GetString("Id:");
-            return int.Parse(input);
+            //try-catch - służy do obsługi wyjątków.
+            //W bloku try umieszczamy kod, w którym może potencjalnie wystąpić wyjątek
+            try
+            {
+                return int.Parse(input);
+            }
+            //Blok catch zawiera kod, który ma być wykonany jeśli wyjątek wystąpi
+            //catch - bez parametru - przechwytuje wszystkie wyjątki i nie daje wglądu w obiekt wyjątku
+            catch
+            {
+                return 0;
+            }
         }
 
         private string GetString(string label)
@@ -83,7 +94,29 @@ namespace Warehouse
 
         private float GetFloat(string label) {
             var input = GetString(label);
-            return float.Parse(input);
+            try
+            {
+                var result = float.Parse(input);
+                if (result < 0)
+                    //throw służy do rzucenia wyjątku. Po tym słowie kluczonym tworzymy wyjątek, który ma zostać rzucony
+                    throw new InvalidDataException("Wartość nie może być ujemna.");
+
+                return result;
+            }
+            //możemy mieć wiele bloków catch w kolejność od szczegółu do ogółu (najbardziej ogólny wyjątek na końcu)
+            //dzięki temu możemy wykonywać różne akcje w zależności od klasy wyjątku
+            //catch() - z parametrem - przechwytuje wyjątki zgodne z klasą parametru, dając wgląd w obiekt
+            catch (FormatException e) //korzystamy z właściwości wyjątku, więc nazywamy jego obiekt jako "e", żeby mieć do niego dostęp
+            {
+                ShowInfo($"Error: {e.Message}");
+                //throw bez dodatkowego kodu służy do rzucenia ponownie wyjątku, który właśnie obsługujemy
+                throw;
+            }
+            catch (Exception e)
+            {
+                ShowInfo($"Error: {e.Message}");
+                return GetFloat(label);
+            }
         }
 
         private DateTime GetDateTime(string label)
