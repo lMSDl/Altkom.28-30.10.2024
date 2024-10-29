@@ -32,14 +32,14 @@ Console.WriteLine(p1.CreateDescription());
 Product p2 = new Product("Marchewka", 3.5f);
 Console.WriteLine(p2.CreateDescription());
 
-
-Person person1 = new Person();
-person1.FirstName = "Ewa";
-person1.LastName = "Ewowska";
-person1.BirthDate = DateTime.Now.AddYears(-35);
+//po konstruktorze występuje inicjalizator w nawiasach klamrowych. Za jego pomocą można uzupełnić pozostałe właściwości w obiekcie.
+//inicjalizator jest w pewnynm sensie alternatywą dla stosowania wzorca budowniczego
+Person person1 = new Person("Ewa", "Ewowska") { BirthDate = DateTime.Now.AddYears(-35) };
+//person1.FirstName = "Ewa";
+//person1.LastName = "Ewowska";
+//person1.BirthDate = DateTime.Now.AddYears(-35);
 
 Console.WriteLine(person1.Bio());
-
 
 Person person2 = new Person();
 //person2.FirstName = "Adam";
@@ -48,8 +48,9 @@ person2.BirthDate = new DateTime(1976, 4, 15);
 
 Console.WriteLine(person2.Bio());
 
-Person person3 = new Person("Monika", "Monikowska");
-Person person4 = new Person("Edward", "Edwardowski", DateTime.Now.AddYears(-23));
+Person person3 = new Person("Monika", "Monikowska") { BirthDate = DateTime.Now.AddYears(-33) };
+//Person person4 = new Person("Edward", "Edwardowski", DateTime.Now.AddYears(-23));
+Person person4 = new Person() { BirthDate = DateTime.Now.AddYears(-23), FirstName = "Edward", LastName = "Edwardowski" };
 
 Console.WriteLine(person3.Bio());
 Console.WriteLine(person4.Bio());
