@@ -1,8 +1,4 @@
-﻿using Models;
-using Services.InMemeory;
-using Warehouse;
-
-Warehouse.Warehouse _warehouse = new();
+﻿Warehouse.Warehouse _warehouse = new();
 
 bool exit = false;
 do

@@ -1,6 +1,6 @@
 ﻿using Models;
 
-namespace Services.InMemeory
+namespace Services.InMemory
 {
     //CRUD - CREATE, READ, UPDATE, DELETE 
     public class ProductsService

@@ -1,5 +1,5 @@
 ﻿using Models;
-using Services.InMemeory;
+using Services.InMemory;
 
 namespace Warehouse
 {
@@ -19,7 +19,7 @@ namespace Warehouse
         {
             var product = new Product
             {
-                Name = GetString("Nazwa:")!,
+                Name = GetString("Nazwa:"),
                 Price = GetFloat("Cena:"),
                 ExpirationDate = GetDateTime("Data przydatności:")
             };
