@@ -122,7 +122,18 @@ namespace Warehouse
         private DateTime GetDateTime(string label)
         {
             var input = GetString(label);
-            return DateTime.Parse(input);
+            DateTime dateTime;
+            //metoda TryParse zamiast rzucać wyjątek przy niepowodzeniu, zwraca informację w postaci bool (true/false) czy parsowanie się powiodło
+            //rezultat parsowania możemy użyskać z drugiego parametru
+            //parametry, który zwracają dodatkowe informacje z funkcji nazywane są parametrami wyjściowymi i muszą być poprzedzone słowem kluczowym "out" zarówno w definicji funkcji jak i podczas jej wywoływania
+            bool success = DateTime.TryParse(input, out dateTime);
+            if (success)
+                return dateTime;
+            else
+            {
+                ShowInfo("Błędny format daty..");
+                return GetDateTime(label);
+            }
         }
     }
 }
