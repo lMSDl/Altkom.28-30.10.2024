@@ -22,6 +22,17 @@ new MulticastDelegateExample().Test();
 
 new BuildInDelegatesExample().Test();
 
+Console.WriteLine("------------");
+EventsExample eventsExamples = new EventsExample();
+
+eventsExamples.OddNumberDelegate = Console.WriteLine;
+//event "opakowuje" delegata i zabrania wyczyszczenia listy "subskrybentów" przez przypisanie funkcji za pomocą "="
+eventsExamples.OddNumbewrEvent += Console.WriteLine;
+
+eventsExamples.Test();
+
+Console.WriteLine("------------");
+
 //Instrukcja najwyższego poziomu - instrukcja napisana bezpośrednio w pliku bez klasy i namespace
 //Jest to zawsze punkt startowy programu (main)
 //Dopuszczalny jest tylko jeden plik w projekcie z instrukcjami najwyższego poziomu
