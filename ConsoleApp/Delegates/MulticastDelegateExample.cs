@@ -33,6 +33,7 @@ namespace ConsoleApp.Delegates
             @delegate += Message2;
             @delegate += Message3;
             @delegate += Console.WriteLine;
+            @delegate += delegate (string a) { Console.WriteLine(a.ToUpper()); }; //delegat wskazujący na funkcję anonimową (bez nazwy)
 
             @delegate.Invoke("ala ma kota");
 
