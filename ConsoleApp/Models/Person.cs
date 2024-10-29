@@ -9,10 +9,10 @@ namespace ConsoleApp.Models
     internal class Person
     {
 
-       /* public Person(string firstName, string lastName, DateTime birthDate) : this(firstName, lastName)
+        public Person(string firstName, string lastName, DateTime birthDate) : this(firstName, lastName)
         {
             BirthDate = birthDate;
-        }*/
+        }
 
         public Person(string firstName, string lastName)
         {
