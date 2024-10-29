@@ -42,6 +42,14 @@ namespace ConsoleApp.Delegates
             var result6 = people.Where(x => x.FirstName == "Adam" || x.FirstName == "Ewa").ToList();
 
             var result7 = people.Select(x => x.FirstName).Skip(2).Take(3).Aggregate((a, b) => $"{a}, {b}");
+
+            //1. posortować kolekcję strings po ilości liter w wyrazach
+            //2. Zsumować wartości kolekcji numbers
+            //3. Z People wybrać osoby, które mają na imię Piotr lub Ewa
+            //4. z People wybrać osoby w wieku 50+ i wybrać ich nazwisko małymi literami
+            //5. wybrać pojedynczą osobę z imieniem dłuższym niż 3 znaki
+
+
         }
     }
 }
