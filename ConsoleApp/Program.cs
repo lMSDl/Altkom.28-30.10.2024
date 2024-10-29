@@ -41,19 +41,23 @@ Person person1 = new Person("Ewa", "Ewowska") { BirthDate = DateTime.Now.AddYear
 
 Console.WriteLine(person1.Bio());
 
-Person person2 = new Person();
+Person person2 = new();
 //person2.FirstName = "Adam";
 person2.LastName = "Adamski";
 person2.BirthDate = new DateTime(1976, 4, 15);
 
 Console.WriteLine(person2.Bio());
 
-Person person3 = new Person("Monika", "Monikowska") { BirthDate = DateTime.Now.AddYears(-33) };
-//Person person4 = new Person("Edward", "Edwardowski", DateTime.Now.AddYears(-23));
-Person person4 = new Person() { BirthDate = DateTime.Now.AddYears(-23), FirstName = "Edward", LastName = "Edwardowski" };
+//przy tworzeniu obiektu, jeśli po lewej stronie znaku "=" jest jasno określony typ, to nie ma potrzeby podawania nazwy klasy po "new"
+Person person3 = new("Monika", "Monikowska") { BirthDate = DateTime.Now.AddYears(-33) };
+
+//var - typ określany dynamicznie na podstwie typu znajdującego się po prawej stronie znaku "=" (np. var splittedString = "ala ma kota".Split(" ")[1];)
+//var person4 = new Person("Edward", "Edwardowski", DateTime.Now.AddYears(-23));
+var person4 = new Person() { BirthDate = DateTime.Now.AddYears(-23), FirstName = "Edward", LastName = "Edwardowski" };
 
 Console.WriteLine(person3.Bio());
 Console.WriteLine(person4.Bio());
+
 
 void Nullable() {
     int a = 4;
