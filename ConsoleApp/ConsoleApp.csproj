@@ -9,7 +9,7 @@
 
 
 	<ItemGroup>
-		<Using Include="ConsoleApp.Models"/>
-		<Using Remove="System"/>
+		<Using Include="ConsoleApp.Models" />
+		<Using Remove="System" />
 	</ItemGroup>
 </Project>
