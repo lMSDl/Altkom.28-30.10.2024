@@ -10,16 +10,14 @@ namespace Services.InFile
     //dziedziczymy po EntityInMemoryService, ponieważ chcemy skorzystać z tam zapisanej funkcjonalności, a tylko dodać opcje zapisu
     public class EntityInFileService<T> : EntityInMemoryService<T>, IEntityService<T> where T : Entity
     {
-        //readonly - pole tylko do odczytu, można ustawić wartość tylko w konstruktorze
-        private readonly string _filePath;
+        protected string FilePath { get; set; }
+
+        protected EntityInFileService() { }
 
         public EntityInFileService(string filePath)
         {
-            _filePath = filePath;
-            if (File.Exists(_filePath))
-            {
-                LoadDataFromXml();
-            }
+            FilePath = filePath;
+            LoadData();
         }
 
         //override - nadpisujemy implementację funkcji wirtualnej
@@ -28,14 +26,14 @@ namespace Services.InFile
             //base - wykonujemy wersję metody z klasy bazowej
             base.Create(item);
 
-            SaveDataToXml();
+            SaveData();
         }
 
         public override bool Delete(int id)
         {
             var result = base.Delete(id);
             if(result)
-                SaveDataToXml();
+                SaveData();
 
             return result;
         }
@@ -44,7 +42,7 @@ namespace Services.InFile
         {
             var result = base.Update(id, item);
             if(result)
-                SaveDataToXml();
+                SaveData();
 
             return result;
         }
@@ -53,8 +51,14 @@ namespace Services.InFile
         {
             string json = JsonSerializer.Serialize(Items);
 
+            WriteToFile(json);
+        }
+
+
+        protected virtual void WriteToFile(string json)
+        {
             //File - fasada ułatwiająca pracę z plikami
-            File.WriteAllText(_filePath, json);
+            File.WriteAllText(FilePath, json);
         }
 
         private void SaveDataUsingStream()
@@ -63,7 +67,7 @@ namespace Services.InFile
 
             //klasy strumieniowe - klasy opierające swoje działanie na strumieniu byte'ów
             //wykorzustanie using spowoduje automatyczne wywołanie funkcji Dispose
-            using FileStream fileStream = new FileStream(_filePath, FileMode.Create);
+            using FileStream fileStream = new FileStream(FilePath, FileMode.Create);
             //klasa pomocnicza do zapisu danych do strumienia obsługująca tekst
             using StreamWriter writer = new StreamWriter(fileStream);
 
@@ -75,17 +79,25 @@ namespace Services.InFile
             //fileStream.Dispose();
         }
 
-        private void LoadData()
+        protected void LoadData()
         {
-            string json = File.ReadAllText(_filePath);
+            if (!File.Exists(FilePath))
+                return;
+            
+            string json = ReadFromFile();
 
             List<T> items = JsonSerializer.Deserialize<List<T>>(json)!;
             Items.AddRange(items);
         }
 
+        protected virtual string ReadFromFile()
+        {
+            return File.ReadAllText(FilePath);
+        }
+
         private void LoadDataUsingStream()
         {
-            using FileStream fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
+            using FileStream fileStream = new FileStream(FilePath, FileMode.OpenOrCreate);
             using StreamReader reader = new StreamReader(fileStream);
 
             string json = reader.ReadToEnd();
@@ -98,14 +110,14 @@ namespace Services.InFile
         private void SaveDataToXml()
         {
             XmlSerializer serializer = new XmlSerializer(Items.GetType());
-            using FileStream fileStream = new FileStream(_filePath, FileMode.Create);
+            using FileStream fileStream = new FileStream(FilePath, FileMode.Create);
 
             serializer.Serialize(fileStream, Items);
 
         }
         private void LoadDataFromXml()
         {
-            using FileStream fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
+            using FileStream fileStream = new FileStream(FilePath, FileMode.OpenOrCreate);
 
             XmlSerializer serializer = new XmlSerializer(Items.GetType());
             var items = (List<T>)serializer.Deserialize(fileStream);
