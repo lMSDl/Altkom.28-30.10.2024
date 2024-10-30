@@ -1,5 +1,6 @@
 ﻿using Models;
 using Services.InMemory;
+using System.Text.Json;
 using Warehouse.Properties;
 
 namespace Warehouse
@@ -134,6 +135,25 @@ namespace Warehouse
                 ShowInfo("Błędny format daty..");
                 return GetDateTime(label);
             }
+        }
+
+        internal void ToJson()
+        {
+            var id = GetId();
+            var item = _service.Read(id);
+            if (item == null)
+                return;
+
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                IgnoreReadOnlyProperties = true,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault
+            };
+
+            var json  = JsonSerializer.Serialize(item, options);
+            ShowInfo(json);
         }
     }
 }

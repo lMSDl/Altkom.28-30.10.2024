@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Models
@@ -10,5 +11,10 @@ namespace Models
     {
         public string Name { get; set; }
         public float Age { get; set; }
+
+        public string Description => $"{Name} ({Age})";
+
+        [JsonIgnore]
+        public string Sth { get; set; } = "ala ma kota";
     }
 }
