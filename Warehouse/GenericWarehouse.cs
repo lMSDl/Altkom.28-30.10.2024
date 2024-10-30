@@ -166,10 +166,16 @@ namespace Warehouse
                 return;
 
             XmlSerializer xmlSerializer = new XmlSerializer(item.GetType());
-            MemoryStream stream = new MemoryStream();
+            //zamiast ręcznie wywoływać funkcję Dispose(), możemy dodać przed deklaracją z inicjalizacją klasy strumieniowej słowo kluczowe "using".
+            //spowoduje to, że po wyjściu z funkcji automatycznie zostanie wywołana metoda Dispose().
+            using MemoryStream stream = new MemoryStream();
             xmlSerializer.Serialize(stream, item);
 
             string xml = Encoding.Default.GetString(stream.ToArray());
+
+            //funkcja służąca zwolnieniu zasobów zarezerwowanych przez obiekt (wywołanie zapobiega wyciekom pamięci)
+            //stream.Dispose();
+
             ShowInfo(xml);
         }
     }
