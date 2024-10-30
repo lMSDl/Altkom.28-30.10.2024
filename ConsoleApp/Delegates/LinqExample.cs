@@ -44,11 +44,15 @@ namespace ConsoleApp.Delegates
             var result7 = people.Select(x => x.FirstName).Skip(2).Take(3).Aggregate((a, b) => $"{a}, {b}");
 
             //1. posortować kolekcję strings po ilości liter w wyrazach
+            var result8 = strings.OrderBy(x => x.Length)/*.ThenByDescending(x => x)*/.ToList();
             //2. Zsumować wartości kolekcji numbers
+            var result9 = numbers/*.Where(x => x % 2 == 0)*/.Sum();
             //3. Z People wybrać osoby, które mają na imię Piotr lub Ewa
+            var result10 = people.Where(x => x.FirstName == "Piotr" || x.FirstName == "Ewa").ToList();
             //4. z People wybrać osoby w wieku 50+ i wybrać ich nazwisko małymi literami
+            var result11 = people.Where(x => x.BirthDate.Value.AddYears(50) < DateTime.Now).Select(x => x.LastName.ToLower()).ToList();
             //5. wybrać pojedynczą osobę z imieniem dłuższym niż 3 znaki
-
+            var result12 = people.Where(x => x.FirstName.Length > 3).First();
 
         }
     }
