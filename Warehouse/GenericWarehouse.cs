@@ -141,10 +141,12 @@ namespace Warehouse
 
         internal void ToJson()
         {
-            var id = GetId();
+            /*var id = GetId();
             var item = _service.Read(id);
             if (item == null)
-                return;
+                return;*/
+
+            var item = _service.Read();
 
             JsonSerializerOptions options = new JsonSerializerOptions
             {
@@ -160,10 +162,12 @@ namespace Warehouse
 
         internal void ToXml()
         {
-            var id = GetId();
+            /*var id = GetId();
             var item = _service.Read(id);
             if (item == null)
-                return;
+                return;*/
+
+            var item = _service.Read();
 
             XmlSerializer xmlSerializer = new XmlSerializer(item.GetType());
             //zamiast ręcznie wywoływać funkcję Dispose(), możemy dodać przed deklaracją z inicjalizacją klasy strumieniowej słowo kluczowe "using".
