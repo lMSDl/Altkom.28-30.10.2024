@@ -3,7 +3,11 @@ using Models;
 using Warehouse;
 
 //wykorzystanie dziedziczenia i generyczności
-GenericWarehouse<Person> _warehouse = new PeopleWarehouse();
+//GenericWarehouse<Person> _warehouse = new PeopleWarehouse();
+
+GenericWarehouse<Pet> _warehouse = new DelegateWarehouse<Pet>(() => new Pet { Name = GenericWarehouse<Pet>.GetString("Nazwa:"), Age = GenericWarehouse<Pet>.GetFloat("Wiek:") },
+                                                               old => new Pet { Name = GenericWarehouse<Pet>.GetString($"Nazwa ({old.Name}):"), Age = GenericWarehouse<Pet>.GetFloat($"Wiek {old.Age}:") },
+                                                               x => $"{x.Id}\t{x.Name}\t{x.Age}" );
 
 bool exit = false;
 do
@@ -28,7 +32,7 @@ do
             exit = true;
             break;
         default:
-            _warehouse.ShowInfo("Komenda nie istnieje...");
+            GenericWarehouse<Pet>.ShowInfo("Komenda nie istnieje...");
             break;
     }
 

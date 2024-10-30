@@ -58,7 +58,7 @@ namespace Warehouse
         //nie znamy implementacji dla T
         protected abstract T CreateUpdatedItem(T old);
 
-        public void ShowInfo(string output)
+        public static void ShowInfo(string output)
         {
             Console.WriteLine(output);
             //_ = - discard, używany gdy chcemy zaznaczyć, że wiemy iż metoda zwraca jakiś rezultat, ale nie jest on nam potrzebny / nie interesuje nas
@@ -82,7 +82,7 @@ namespace Warehouse
             }
         }
 
-        protected string GetString(string label)
+        public static string GetString(string label)
         {
             Console.WriteLine(label);
 
@@ -91,7 +91,7 @@ namespace Warehouse
             return Console.ReadLine()!;
         }
 
-        protected float GetFloat(string label) {
+        public static float GetFloat(string label) {
             var input = GetString(label);
             try
             {

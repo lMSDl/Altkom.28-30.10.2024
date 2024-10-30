@@ -16,7 +16,7 @@ namespace Services.InMemory
 
         public void Create(T item)
         {
-            int maxId = _items.Max(x => x.Id);
+            int maxId = _items.Select(x => x.Id).DefaultIfEmpty().Max();
             item.Id = maxId + 1;
 
             _items.Add(item);
