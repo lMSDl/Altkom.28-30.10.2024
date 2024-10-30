@@ -16,16 +16,8 @@ namespace Services.InMemory
 
         public void Create(T item)
         {
-            int maxId = 0;
-
-            foreach (var p in _items)
-            {
-                if (maxId < p.Id)
-                    maxId = p.Id;
-            }
-
+            int maxId = _items.Max(x => x.Id);
             item.Id = maxId + 1;
-
 
             _items.Add(item);
         }
@@ -42,20 +34,12 @@ namespace Services.InMemory
         public List<T> Read()
         {
             //towrzymy nową listę (nową instancję) na podstawie iestnijącej listy - kopia listy
-            return new List<T>(_items);
+            return _items.ToList();
         }
 
         public T? Read(int id)
         {
-            foreach (var p in _items)
-            {
-                if (p.Id == id)
-                {
-                    return p;
-                }
-            }
-
-            return null;
+            return _items.Where(x => x.Id == id).SingleOrDefault();
         }
 
         public bool Update(int id, T item)
