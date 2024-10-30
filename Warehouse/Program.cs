@@ -16,7 +16,7 @@ using Warehouse.Properties;
 GenericWarehouse<Pet> _warehouse = new DelegateWarehouse<Pet>(() => new Pet { Name = GenericWarehouse<Pet>.GetString($"{Resources.name}:"), Age = GenericWarehouse<Pet>.GetFloat("Wiek:") },
                                                                old => new Pet { Name = GenericWarehouse<Pet>.GetString($"{Resources.name} ({old.Name}):"), Age = GenericWarehouse<Pet>.GetFloat($"Wiek {old.Age}:") },
                                                                x => $"{x.Id}\t{x.Name}\t{x.Age}",
-                                                               new EntityInFileService<Pet>());
+                                                               new EntityInFileService<Pet>("data.json"));
 
 bool exit = false;
 do

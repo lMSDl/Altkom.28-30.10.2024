@@ -10,51 +10,52 @@ namespace Services.InMemory
     // interfejs implementujemy podobnie jak dziedziczenie, czyli po :
     public class EntityInMemoryService<T> : IEntityService<T>  where T : Entity
     {
-        private List<T> _items;
+        //read-only property - nie posiada settera i można ustawić jego wartość tylko w konstruktorze
+        protected List<T> Items { get; }
         public EntityInMemoryService()
         {
-            _items = new List<T>();
+            Items = new List<T>();
         }
 
-        public void Create(T item)
+        public virtual void Create(T item)
         {
-            int maxId = _items.Select(x => x.Id).DefaultIfEmpty().Max();
+            int maxId = Items.Select(x => x.Id).DefaultIfEmpty().Max();
             item.Id = maxId + 1;
 
-            _items.Add(item);
+            Items.Add(item);
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
             var item = Read(id);
 
             if (item != null)
-                return _items.Remove(item);
+                return Items.Remove(item);
             return false;
         }
 
         public List<T> Read()
         {
             //towrzymy nową listę (nową instancję) na podstawie iestnijącej listy - kopia listy
-            return _items.ToList();
+            return Items.ToList();
         }
 
         public T? Read(int id)
         {
-            return _items.Where(x => x.Id == id).SingleOrDefault();
+            return Items.Where(x => x.Id == id).SingleOrDefault();
         }
 
-        public bool Update(int id, T item)
+        public virtual bool Update(int id, T item)
         {
             T? p = Read(id);
             if (p == null)
                 return false;
 
-            int index = _items.IndexOf(p);
-            _items.RemoveAt(index);
+            int index = Items.IndexOf(p);
+            Items.RemoveAt(index);
 
             item.Id = p.Id;
-            _items.Insert(index, item);
+            Items.Insert(index, item);
             return true;
         }
     }

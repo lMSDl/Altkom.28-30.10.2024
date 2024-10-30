@@ -9,7 +9,7 @@ namespace Services.Interfaces
         //domyśnie, wszyscy memberzy interfejsu są publiczni
         void Create(T item);
         List<T> Read();
-        T Read(int id);
+        T? Read(int id);
         bool Update(int id, T item);
         bool Delete(int id);
     }
