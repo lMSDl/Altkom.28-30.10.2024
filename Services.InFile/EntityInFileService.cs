@@ -16,7 +16,10 @@ namespace Services.InFile
         public EntityInFileService(string filePath)
         {
             _filePath = filePath;
-            LoadDataFromXml();
+            if (File.Exists(_filePath))
+            {
+                LoadDataFromXml();
+            }
         }
 
         //override - nadpisujemy implementację funkcji wirtualnej
