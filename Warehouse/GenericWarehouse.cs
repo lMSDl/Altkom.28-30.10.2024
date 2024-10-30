@@ -1,6 +1,8 @@
 ﻿using Models;
 using Services.InMemory;
+using System.Text;
 using System.Text.Json;
+using System.Xml.Serialization;
 using Warehouse.Properties;
 
 namespace Warehouse
@@ -154,6 +156,21 @@ namespace Warehouse
 
             var json  = JsonSerializer.Serialize(item, options);
             ShowInfo(json);
+        }
+
+        internal void ToXml()
+        {
+            var id = GetId();
+            var item = _service.Read(id);
+            if (item == null)
+                return;
+
+            XmlSerializer xmlSerializer = new XmlSerializer(item.GetType());
+            MemoryStream stream = new MemoryStream();
+            xmlSerializer.Serialize(stream, item);
+
+            string xml = Encoding.Default.GetString(stream.ToArray());
+            ShowInfo(xml);
         }
     }
 }

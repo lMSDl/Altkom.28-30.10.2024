@@ -20,7 +20,7 @@ do
 {
     Console.Clear();
     _warehouse.Show();
-    Console.WriteLine($"Commands: {Resources.create}, {Resources.edit}, {Resources.delete}, json, exit");
+    Console.WriteLine($"Commands: {Resources.create}, {Resources.edit}, {Resources.delete}, json, xml, exit");
     var input = Console.ReadLine();
 
     if(input == Resources.create)
@@ -38,6 +38,10 @@ do
     else if (input == "json")
     {
         _warehouse.ToJson();
+    }
+    else if (input == "xml")
+    {
+        _warehouse.ToXml();
     }
     else if (input == "exit")
     {

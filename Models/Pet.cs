@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Models
 {
@@ -15,6 +16,7 @@ namespace Models
         public string Description => $"{Name} ({Age})";
 
         [JsonIgnore]
+        [XmlIgnore]
         public string Sth { get; set; } = "ala ma kota";
     }
 }
