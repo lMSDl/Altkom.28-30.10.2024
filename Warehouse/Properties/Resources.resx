@@ -129,4 +129,10 @@
   <data name="delete" xml:space="preserve">
     <value>delete</value>
   </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="idElementNotExists" xml:space="preserve">
+    <value>Element with Id {0} not exists</value>
+  </data>
 </root>

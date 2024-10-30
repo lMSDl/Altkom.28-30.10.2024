@@ -88,6 +88,24 @@ namespace Warehouse.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Element with Id {0} not exists.
+        /// </summary>
+        internal static string idElementNotExists {
+            get {
+                return ResourceManager.GetString("idElementNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown command.
         /// </summary>
         internal static string unknownCommand {

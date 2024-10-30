@@ -126,4 +126,14 @@
   <data name="unknownCommand" xml:space="preserve">
     <value>Komenda nie istnieje</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="delete" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="idElementNotExists" xml:space="preserve">
+    <value>Element o Id {0} nie istnieje</value>
+  </data>
 </root>

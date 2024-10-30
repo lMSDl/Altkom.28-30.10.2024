@@ -1,5 +1,6 @@
 ﻿using Models;
 using Services.InMemory;
+using Warehouse.Properties;
 
 namespace Warehouse
 {
@@ -46,7 +47,7 @@ namespace Warehouse
 
             if (old == null)
             {
-                ShowInfo("Product o danym Id nie istnieje");
+                ShowInfo(string.Format(Resources.idElementNotExists, id));
                 return;
             }
 
