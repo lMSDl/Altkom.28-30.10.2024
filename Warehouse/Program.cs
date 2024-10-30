@@ -1,6 +1,12 @@
 ﻿
 using Models;
+using System.Globalization;
 using Warehouse;
+using Warehouse.Properties;
+
+//"ręczne" ustawienie języka aplikacji - domyślnie wybierany będzie język systemowy 
+//CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("de");
+
 
 //wykorzystanie dziedziczenia i generyczności
 //GenericWarehouse<Person> _warehouse = new PeopleWarehouse();
@@ -14,26 +20,28 @@ do
 {
     Console.Clear();
     _warehouse.Show();
-    Console.WriteLine("Commands: create, edit, delete, exit");
+    Console.WriteLine($"Commands: {Resources.create}, {Resources.edit}, {Resources.delete}, exit");
     var input = Console.ReadLine();
 
-    switch (input)
+    if(input == Resources.create)
     {
-        case "create":
-            _warehouse.Create();
-            break;
-        case "edit":
-            _warehouse.Edit();
-            break;
-        case "delete":
-            _warehouse.Delete();
-            break;
-        case "exit":
-            exit = true;
-            break;
-        default:
-            GenericWarehouse<Pet>.ShowInfo("Komenda nie istnieje...");
-            break;
+        _warehouse.Create();
+    }
+    else if (input == Resources.edit)
+    {
+        _warehouse.Edit();
+    }
+    else if (input == Resources.delete)
+    {
+        _warehouse.Delete();
+    }
+    else if (input == "exit")
+    {
+        exit = true;
+    }
+    else
+    {
+        GenericWarehouse<Pet>.ShowInfo(Resources.unknownCommand);
     }
 
 } while ( !exit );
