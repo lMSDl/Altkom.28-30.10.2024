@@ -1,11 +1,16 @@
 ﻿using Models;
 using Services.InMemory;
+using Services.Interfaces;
 
 namespace Warehouse
 {
     //dziedziczymy po klasie generycznej i abstakcyjnej dlatego musimy zapewnić ciało dla funkcji abstrakcyjnych z klasy bazowej
     internal class ProductsWarehouse : GenericWarehouse<Product>
     {
+        public ProductsWarehouse(IEntityService<Product> service) : base(service)
+        {
+        }
+
         protected override Product CreateNewItem()
         {
             return new Product

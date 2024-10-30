@@ -1,5 +1,7 @@
 ﻿
 using Models;
+using Services.InFile;
+using Services.InMemory;
 using System.Globalization;
 using Warehouse;
 using Warehouse.Properties;
@@ -13,7 +15,8 @@ using Warehouse.Properties;
 
 GenericWarehouse<Pet> _warehouse = new DelegateWarehouse<Pet>(() => new Pet { Name = GenericWarehouse<Pet>.GetString($"{Resources.name}:"), Age = GenericWarehouse<Pet>.GetFloat("Wiek:") },
                                                                old => new Pet { Name = GenericWarehouse<Pet>.GetString($"{Resources.name} ({old.Name}):"), Age = GenericWarehouse<Pet>.GetFloat($"Wiek {old.Age}:") },
-                                                               x => $"{x.Id}\t{x.Name}\t{x.Age}" );
+                                                               x => $"{x.Id}\t{x.Name}\t{x.Age}",
+                                                               new EntityInFileService<Pet>());
 
 bool exit = false;
 do

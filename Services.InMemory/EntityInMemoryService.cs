@@ -1,15 +1,17 @@
 ﻿
 using Models;
+using Services.Interfaces;
 
 namespace Services.InMemory
 {
     //klasa generyczna
     // where T : Entity - klasy podstawiane za T muszą dziedziczyć po wskazanej klasie
     // w tym przypadku T musi dziedziczyć po Entity ponieważ potrzebujemy informacji o właściwosći Id
-    public class EntitiyService<T> where T : Entity
+    // interfejs implementujemy podobnie jak dziedziczenie, czyli po :
+    public class EntityInMemoryService<T> : IEntityService<T>  where T : Entity
     {
         private List<T> _items;
-        public EntitiyService()
+        public EntityInMemoryService()
         {
             _items = new List<T>();
         }

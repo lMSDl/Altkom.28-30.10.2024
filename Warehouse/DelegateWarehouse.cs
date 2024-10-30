@@ -1,4 +1,6 @@
 ﻿using Models;
+using Services.InMemory;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace Warehouse
         private Func<T, T> _createUpdatedItem;
         private Func<T, string> _getItemInfo;
 
-        public DelegateWarehouse(Func<T> createNewItem, Func<T, T> createUpdatedItem, Func<T, string> getItemInfo)
+        public DelegateWarehouse(Func<T> createNewItem, Func<T, T> createUpdatedItem, Func<T, string> getItemInfo, IEntityService<T> service) : base(service)
         {
             _createNewItem = createNewItem;
             _createUpdatedItem = createUpdatedItem;

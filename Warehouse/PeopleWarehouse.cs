@@ -1,9 +1,15 @@
 ﻿using Models;
+using Services.InMemory;
+using Services.Interfaces;
 
 namespace Warehouse
 {
     internal class PeopleWarehouse : GenericWarehouse<Person>
     {
+        public PeopleWarehouse(IEntityService<Person> service) : base(service)
+        {
+        }
+
         protected override Person CreateNewItem()
         {
             return new Person() { FirstName = GetString("Imię:"), LastName = GetString("Nazwisko:"), BirthDate = GetDateTime("Data urodzenia:") };

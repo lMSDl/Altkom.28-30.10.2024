@@ -1,5 +1,5 @@
 ﻿using Models;
-using Services.InMemory;
+using Services.Interfaces;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Serialization;
@@ -9,7 +9,12 @@ namespace Warehouse
 {
     internal abstract class GenericWarehouse<T> where T : Entity
     {
-        EntitiyService<T> _service = new EntitiyService<T>();
+        IEntityService<T> _service;
+
+        protected GenericWarehouse(IEntityService<T> service)
+        {
+            _service = service;
+        }
 
         public void Show()
         {
