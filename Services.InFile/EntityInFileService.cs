@@ -2,6 +2,8 @@
 using Services.InMemory;
 using Services.Interfaces;
 using System.Text.Json;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Services.InFile
 {
@@ -14,7 +16,7 @@ namespace Services.InFile
         public EntityInFileService(string filePath)
         {
             _filePath = filePath;
-            LoadData();
+            LoadDataFromXml();
         }
 
         //override - nadpisujemy implementację funkcji wirtualnej
@@ -23,14 +25,14 @@ namespace Services.InFile
             //base - wykonujemy wersję metody z klasy bazowej
             base.Create(item);
 
-            SaveData();
+            SaveDataToXml();
         }
 
         public override bool Delete(int id)
         {
             var result = base.Delete(id);
             if(result)
-                SaveData();
+                SaveDataToXml();
 
             return result;
         }
@@ -39,7 +41,7 @@ namespace Services.InFile
         {
             var result = base.Update(id, item);
             if(result)
-                SaveData();
+                SaveDataToXml();
 
             return result;
         }
@@ -86,6 +88,25 @@ namespace Services.InFile
             string json = reader.ReadToEnd();
 
             List<T> items = JsonSerializer.Deserialize<List<T>>(json)!;
+
+            Items.AddRange(items);
+        }
+
+        private void SaveDataToXml()
+        {
+            XmlSerializer serializer = new XmlSerializer(Items.GetType());
+            using FileStream fileStream = new FileStream(_filePath, FileMode.Create);
+
+            serializer.Serialize(fileStream, Items);
+
+        }
+        private void LoadDataFromXml()
+        {
+            using FileStream fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
+
+            XmlSerializer serializer = new XmlSerializer(Items.GetType());
+            var items = (List<T>)serializer.Deserialize(fileStream);
+
 
             Items.AddRange(items);
         }
